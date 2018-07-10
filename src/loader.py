@@ -13,7 +13,7 @@ def load_tournament():
 
 def pull_features(data_source, for_era=None):
     if for_era is not None:
-        dataset = data_source[data_source['era'] == 'era' + for_era]
+        dataset = data_source[data_source['era'] == 'era' + str(for_era)]
     else:
         dataset = data_source
     features = [feature for feature in list(dataset) if "feature" in feature]
