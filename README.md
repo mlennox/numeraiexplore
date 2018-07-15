@@ -1,2 +1,1 @@
-# numeraiexplore
-Data exploration on Numer.ai data
+# Numer.ai data exploration

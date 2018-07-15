@@ -11,11 +11,14 @@ def load_tournament():
         './data/numerai_tournament_data.csv', header=0)
 
 
-def pull_features(data_source, for_era=None):
+def pull_features(data_source, for_era=None, target_bernie_value=None):
     if for_era is not None:
         dataset = data_source[data_source['era'] == 'era' + str(for_era)]
     else:
         dataset = data_source
+    if target_bernie_value is not None:
+        dataset = dataset[dataset['target_bernie'] == target_bernie_value]
+    # print(dataset.describe())
     features = [feature for feature in list(dataset) if "feature" in feature]
     return dataset[features]
 

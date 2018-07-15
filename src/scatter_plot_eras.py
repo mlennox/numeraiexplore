@@ -4,6 +4,14 @@ from pandas.plotting import scatter_matrix
 
 from loader import load_training, pull_features, pull_features_and_era_label
 
+
+def create_scatter_plot(dataset, featureX, featureY, filename, color='red'):
+    fig, ax = plt.subplots(nrows=1, ncols=1)
+    dataset.plot(kind='scatter', x=featureX, y=featureY, color=color, ax=ax)
+    plt.savefig(filename)
+    plt.close(fig)
+
+
 training_data = load_training()
 
 # X_14 = pull_features_and_era_label(training_data, for_era='14')[
