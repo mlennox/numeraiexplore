@@ -28,18 +28,17 @@ def create_correlation_matrix(dataset, filename, cmap=plt.cm.viridis):
 def calc_image_diff(imageA_filename, imageB_filename, diff_filename):
     imageA = mpimg.imread(imageA_filename)
     imageB = mpimg.imread(imageB_filename)
-    print(type(imageA))
-    print(imageA.shape)
-    # print(imageA[:, :, 1])
-
-    err = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
-    err /= float(imageA.shape[0] * imageA.shape[1])
-    print('Mean squared error', err)
-    print(imageA[:, :, 1].shape)
-    diff_image = np.subtract(imageA[:, :, 1], imageB[:, :, 1])
-    # diff_image = np.subtract(imageA, imageB)
-    print(diff_image)
+    diff_image = np.subtract(imageA[:, :, 1:4], imageB[:, :, 1:4])
+    diff_image = np.subtract([1, 1, 1], diff_image)
     mpimg.imsave(diff_filename, diff_image)
+
+
+def calc_mean_squared_diff(imageA_filename, imageB_filename):
+    imageA = mpimg.imread(imageA_filename)
+    imageB = mpimg.imread(imageB_filename)
+    diff = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+    diff /= float(imageA.shape[0] * imageA.shape[1])
+    return diff
 
 
 training_data = load_training()
@@ -52,3 +51,17 @@ create_correlation_matrix(negative, 'images/matrix_negative.png')
 
 calc_image_diff('images/matrix_positive.png',
                 'images/matrix_negative.png', 'images/diff.png')
+
+print('Mean squared difference', calc_mean_squared_diff(
+    'images/matrix_positive.png', 'images/matrix_negative.png'))
+
+# show image diff for all eras
+
+create_correlation_matrix(pull_features(
+    training_data, target_bernie_value=1), 'images/matrix_positive_all_eras.png')
+
+create_correlation_matrix(pull_features(
+    training_data, target_bernie_value=0), 'images/matrix_negative_all_eras.png')
+
+calc_image_diff('images/matrix_positive_all_eras.png',
+                'images/matrix_negative_all_eras.png', 'images/CorrelationDiff_all_aras.png')
