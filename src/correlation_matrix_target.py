@@ -48,23 +48,23 @@ training_data = load_training()
 negative = pull_features(training_data, target_bernie_value=0, for_era=1)
 positive = pull_features(training_data, target_bernie_value=1, for_era=1)
 
-create_correlation_matrix(positive, 'matrix_positive.png')
+create_correlation_matrix(positive, 'correlation_matrix_positive.png')
 
-create_correlation_matrix(negative, 'matrix_negative.png')
+create_correlation_matrix(negative, 'correlation_matrix_negative.png')
 
-calc_image_diff('matrix_positive.png', 'matrix_negative.png',
+calc_image_diff('correlation_matrix_positive.png', 'correlation_matrix_negative.png',
                 'correlation_diff_era1.png')
 
 print('Mean squared difference', calc_mean_squared_diff(
-    'matrix_positive.png', 'matrix_negative.png'))
+    'correlation_matrix_positive.png', 'correlation_matrix_negative.png'))
 
 # show image diff for all eras
 
 create_correlation_matrix(pull_features(
-    training_data, target_bernie_value=1), 'matrix_positive_all_eras.png')
+    training_data, target_bernie_value=1), 'correlation_matrix_positive_all_eras.png')
 
 create_correlation_matrix(pull_features(
-    training_data, target_bernie_value=0), 'matrix_negative_all_eras.png')
+    training_data, target_bernie_value=0), 'correlation_matrix_negative_all_eras.png')
 
-calc_image_diff('matrix_positive_all_eras.png',
-                'matrix_negative_all_eras.png', 'correlation_diff_all_eras.png')
+calc_image_diff('correlation_matrix_positive_all_eras.png',
+                'correlation_matrix_negative_all_eras.png', 'correlation_diff_all_eras.png')
