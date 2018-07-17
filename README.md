@@ -4,7 +4,7 @@ Scripts to visualise the numerai dataset
 
 ## Correlations
 
-![](/src/images/correlation/matrix_negative.png)
+![](/src/images/correlation/correlation_matrix_negative.png)
 
 ## Scatter plots
 
