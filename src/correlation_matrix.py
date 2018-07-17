@@ -23,4 +23,4 @@ def create_correlation_matrix(dataset, filename, filepath='images/correlation/',
 
 
 create_correlation_matrix(pull_features(
-    load_training()), 'matrix_all_eras.png')
+    load_training()), 'correlation_matrix_all_eras.png')
