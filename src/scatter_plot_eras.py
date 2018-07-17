@@ -1,45 +1,27 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from pandas.plotting import scatter_matrix
+from picipixi import create_gif
 
 from loader import load_training, pull_features, pull_features_and_era_label
 
 
-def create_scatter_plot(dataset, featureX, featureY, filename, color='red'):
-    fig, ax = plt.subplots(nrows=1, ncols=1)
-    dataset.plot(kind='scatter', x=featureX, y=featureY, color=color, ax=ax)
-    plt.savefig(filename)
-    plt.close(fig)
+def create_scatter_plot(dataset, filename, featureX='feature14', featureY='feature44',
+                        filepath='images/scatter/animation/', color='red'):
+    era_plot = dataset.plot(kind='scatter', x=featureX,
+                            y=featureY, color=color)
+    era_plot.set_ylim(0.0, 1.0)
+    era_plot.set_xlim(0.0, 1.0)
+    plt.savefig(filepath + filename)
 
 
 training_data = load_training()
 
-# X_14 = pull_features_and_era_label(training_data, for_era='14')[
-#     ['feature44_14', 'feature14_14']]
-# X_33 = pull_features_and_era_label(training_data, for_era='33')[
-#     ['feature44_33', 'feature14_33']]
-# X_80 = pull_features_and_era_label(training_data, for_era='80')[
-#     ['feature44_80', 'feature14_80']]
 
-# scatter_data = pd.concat([X_14, X_33, X_80])
-
-# ax14 = scatter_data.plot(kind='scatter', x='feature44_14',
-#                          y='feature14_14', color='b')
-# ax33 = scatter_data.plot(kind='scatter', x='feature44_33',
-#                          y='feature14_33', color='r', ax=ax14)
-# ax80 = scatter_data.plot(kind='scatter', x='feature44_80',
-#                          y='feature14_80', color='y', ax=ax14)
-
-# plt.show()
-
-
-# X = pull_features(training_data, for_era=1)
-# ax = X.plot(kind='scatter', x='feature14', y='feature44', color='r')
-# plt.savefig('scatter/correlation_era1.png')
-
+# create the animation frames
 for era in range(1, 121):
-    fig, ax = plt.subplots(nrows=1, ncols=1)
     X = pull_features(training_data, for_era=era)
-    X.plot(kind='scatter', x='feature14', y='feature44', color='r', ax=ax)
-    plt.savefig('scatter/correlation_era' + str(era) + '.png')
-    plt.close(fig)
+    create_scatter_plot(X, 'scatter_correlation_frame_era' + str(era) + '.png')
+
+# TODO: combine the frames into an animation
+# create_gif('images/scatter/scatter_correlation_all_eras.gif', 'images/scatter/animation', 'scatter_correlation_frame_era')
