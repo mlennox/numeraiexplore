@@ -23,6 +23,13 @@ def pull_features(data_source, for_era=None, target_bernie_value=None):
     return dataset[features]
 
 
+def pull_lots(dataset):
+    features = [feature for feature in list(dataset) if "feature" in feature]
+    features.append('era')
+    features.append('target_bernie')
+    return dataset[features]
+
+
 def pull_features_and_era_label(data_source, for_era):
     # if for_era = 12 the data will pull onlu rows with 'era' column matching 'era12'
     # and the returned dataframe will have labels suffixed with era 'feature23_12'
