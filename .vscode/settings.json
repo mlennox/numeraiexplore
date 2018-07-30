@@ -1,3 +1,4 @@
 {
-  "python.pythonPath": "/Users/mlennox/.pyenv/versions/numerai/bin/python"
+  "python.pythonPath": "/Users/mlennox/.pyenv/versions/numerai/bin/python",
+  "python.jediEnabled": false
 }
